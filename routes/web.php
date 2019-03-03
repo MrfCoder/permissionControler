@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::group(['middleware'=>'role:super-admin'],function(){
+    Route::resource('admin/permission', 'Admin\\PermissionController');
+    Route::resource('admin/role', 'Admin\\RoleController');
+    Route::resource('admin/user', 'Admin\\UserController');
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
